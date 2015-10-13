@@ -1,0 +1,22 @@
+#!/bin/bash
+
+submit() {
+  local root=$(git rev-parse --show-toplevel)
+  ${root}/bin/chmod
+  ssh_mkdir
+  tar -pcvzf - $(git diff --name-only master..HEAD clang) | ssh aizu-std /usr/local/gnu/bin/tar -pxvzf -
+}
+
+ssh_mkdir() {
+  local tmp=$(mktemp -d)
+  mkdir ${tmp}/clang
+  chmod g-rwx ${tmp}/clang
+  for ex in $(seq 1 15); do
+    mkdir ${tmp}/clang/$(printf "ex%02d" ${ex})
+    chmod g-rwx ${tmp}/clang/$(printf "ex%02d" ${ex})
+  done
+  tar -C ${tmp} -pcvzf - clang | ssh aizu-std /usr/local/gnu/bin/tar pxvzf -
+  rm -r ${tmp}
+}
+
+submit $@
