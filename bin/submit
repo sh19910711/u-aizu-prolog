@@ -3,7 +3,7 @@
 submit() {
   local root=$(git rev-parse --show-toplevel)
   ${root}/bin/chmod
-  tar -pcvzf - $(git diff --name-only master..HEAD clang) | ssh aizu-std /usr/local/gnu/bin/tar -pxvzf -
+  tar -C ${root} -pcvzf - $(git diff --name-only master..HEAD ${root}/clang) | ssh aizu-std /usr/local/gnu/bin/tar -pxvzf -
 }
 
 submit $@
