@@ -1,5 +1,5 @@
 #!/bin/bash
 chmod() {
-  chmod -R g-rwx clang/
+  /usr/bin/chmod -R g-rwx clang/
 }
 chmod
