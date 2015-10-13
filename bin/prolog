@@ -1,0 +1,5 @@
+#!/bin/bash
+CMD="$@"
+CMD="${CMD:-gprolog}"
+sudo docker run -ti prolog ${CMD}
+
