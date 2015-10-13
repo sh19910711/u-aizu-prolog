@@ -9,13 +9,15 @@ submit() {
 
 ssh_mkdir() {
   local tmp=$(mktemp -d)
-  mkdir ${tmp}/clang
-  chmod g-rwx ${tmp}/clang
+  pushd ${tmp}
+  mkdir clang
+  chmod g-rwx clang
   for ex in $(seq 1 15); do
-    mkdir ${tmp}/clang/$(printf "ex%02d" ${ex})
-    chmod g-rwx ${tmp}/clang/$(printf "ex%02d" ${ex})
+    mkdir clang/$(printf "ex%02d" ${ex})
+    chmod g-rwx clang/$(printf "ex%02d" ${ex})
   done
-  tar -C ${tmp} -pcvzf - clang | ssh aizu-std /usr/local/gnu/bin/tar pxvzf -
+  tar -pcvzf - clang | ssh aizu-std /usr/local/gnu/bin/tar -pxvzf -
+  popd
   rm -r ${tmp}
 }
 
