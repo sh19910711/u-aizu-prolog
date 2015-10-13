@@ -1,0 +1,8 @@
+#!/bin/bash
+docker_run() {
+  local root=$(git rev-parse --show-toplevel)
+  local rel=$(realpath --relative-base ${root} $(pwd))
+  sudo docker run -w /workspace/${rel} -v ${root}:/workspace -ti $@
+}
+
+docker_run $@
