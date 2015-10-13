@@ -1,0 +1,5 @@
+#!/bin/bash
+chmod() {
+  chmod -R g-rwx clang/
+}
+chmod
