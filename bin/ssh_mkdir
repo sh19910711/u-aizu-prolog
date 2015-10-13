@@ -1,0 +1,17 @@
+#!/bin/bash
+
+ssh_mkdir() {
+  local tmp=$(mktemp -d)
+  pushd ${tmp}
+  /usr/bin/mkdir clang
+  /usr/bin/chmod g-rwx clang
+  for ex in $(seq 1 15); do
+    /usr/bin/mkdir clang/$(printf "ex%02d" ${ex})
+    /usr/bin/chmod g-rwx clang/$(printf "ex%02d" ${ex})
+  done
+  tar -pcvzf - clang | ssh aizu-std /usr/local/gnu/bin/tar -pxvzf -
+  popd
+  rm -r ${tmp}
+}
+
+ssh_mkdir $@
