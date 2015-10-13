@@ -1,5 +1,6 @@
 #!/bin/bash
 chmod() {
-  /usr/bin/chmod -R g-rwx clang/
+  local root=$(git rev-parse --show-toplevel)
+  /usr/bin/chmod -R g-rwx ${root}/clang/
 }
 chmod
